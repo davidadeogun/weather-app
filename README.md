@@ -6,7 +6,7 @@ This project aims to further my learning as a software engineer by creating a fu
 
 The primary purpose of writing this software is to deepen my understanding of JavaScript language syntax and modern web development practices. Additionally, this project helps in mastering the integration of external APIs and deploying web applications to cloud platforms.
 
-
+[View Live Application](https://weather-app-0555-70a3fa8ddb2d.herokuapp.com/)
 
 ## Development Environment
 
