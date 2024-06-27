@@ -6,7 +6,7 @@ This project aims to further my learning as a software engineer by creating a fu
 
 The primary purpose of writing this software is to deepen my understanding of JavaScript language syntax and modern web development practices. Additionally, this project helps in mastering the integration of external APIs and deploying web applications to cloud platforms.
 
-[Software Demo Video](http://youtube.link.goes.here)
+
 
 ## Development Environment
 
@@ -35,5 +35,4 @@ The primary purpose of writing this software is to deepen my understanding of Ja
 - Implement more detailed weather forecasts, including hourly and weekly forecasts.
 - Enhance the user interface with more interactive elements and better styling.
 - Add user authentication to save and manage favorite locations.
-- Improve error handling and display more user-friendly error messages.
 - Optimize the application for performance and scalability.
