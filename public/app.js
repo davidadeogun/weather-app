@@ -21,7 +21,9 @@ const fetchApiKey = async () => {
 // Call this function on page load to get the API key
 fetchApiKey();
 
-// Using axios for HTTP requests
+// One of the requirements
+// Used axios, a third-party Node.js library for HTTP requests,
+// to handle asyncrhonous operations and to make API calls 
 const axiosInstance = axios.create({
     baseURL: 'https://api.openweathermap.org/data/2.5/',
 });
@@ -59,7 +61,8 @@ const createWeatherCard = (cityName, weatherItem, index) => {
     }
 };
 
-// Fetch weather details
+
+// Fetch weather details with recursion and ES6 array functions
 const getWeatherDetails = async (cityName, lat, lon) => {
     try {
         const response = await axiosInstance.get('forecast', {
@@ -69,27 +72,40 @@ const getWeatherDetails = async (cityName, lat, lon) => {
         const forecastArray = response.data.list;
         const uniqueForecastDays = new Set();
 
+        // Second requirement-  Native Array ES6 function
+        //Filter to get a unique forecast for five days
         const fiveDaysForecast = forecastArray.filter(forecast => {
             const forecastDate = new Date(forecast.dt_txt).getDate();
-            if (!uniqueForecastDays.has(forecastDate) && uniqueForecastDays.size < 6) {
+            if (!uniqueForecastDays.has(forecastDate) && uniqueForecastDays.size < 5) {
                 uniqueForecastDays.add(forecastDate);
                 return true;
             }
             return false;
         });
 
+        // Clear previous results
         cityInput.value = "";
         currentWeatherDiv.innerHTML = "";
         daysForecastDiv.innerHTML = "";
 
-        fiveDaysForecast.forEach((weatherItem, index) => {
+        // Third requirement
+        //Recursive function to process and display weather data
+        const processForecast = (index) => {
+            if (index >= fiveDaysForecast.length) return; // Base case
+
+            const weatherItem = fiveDaysForecast[index];
             const html = createWeatherCard(cityName, weatherItem, index);
             if (index === 0) {
                 currentWeatherDiv.insertAdjacentHTML("beforeend", html);
             } else {
                 daysForecastDiv.insertAdjacentHTML("beforeend", html);
             }
-        });
+
+            processForecast(index + 1); // Recursive call
+        };
+
+        // Start processing the forecast data
+        processForecast(0);
     } catch (error) {
         console.error('Error fetching weather data:', error);
         alert("An error occurred while fetching the weather forecast!");
@@ -101,6 +117,8 @@ const getCityCoordinates = async () => {
     const cityName = cityInput.value.trim();
     console.log('City entered:', cityName);
     if (cityName === "") return;
+
+
 
     const API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
 
@@ -120,22 +138,10 @@ const getCityCoordinates = async () => {
 // Attach event listener to search button
 searchButton.addEventListener("click", getCityCoordinates);
 
-// Example of Recursion
-function factorial(n) {
-    if (n === 0) {
-        return 1;
-    }
-    return n * factorial(n - 1);
-}
 
-console.log('Factorial of 5:', factorial(5));
 
-// Using ES6 Native Array Function
-const numbers = [1, 2, 3, 4, 5];
-const doubled = numbers.map(num => num * 2);
-console.log('Doubled numbers:', doubled);
-
-// Exception Handling Example
+// One of the additional requirements
+//Exception Handling Example
 try {
     throw new Error('This is an example error');
 } catch (error) {
